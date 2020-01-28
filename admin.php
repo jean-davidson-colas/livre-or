@@ -3,7 +3,7 @@ session_start();
 
 $connexion = mysqli_connect("localhost","root","","livreor");
 $login = "admin";
-$requete = "SELECT * FROM utilisateurs";
+$requete = "SELECT id,login,password FROM utilisateurs";
 $query = mysqli_query($connexion, $requete);
 $resultat = mysqli_fetch_all($query);
 
@@ -20,13 +20,10 @@ $resultat = mysqli_fetch_all($query);
  
 <body>
 
-    <div id="stars"></div>
-    <div id="stars2"></div>
-    <div id="stars3"></div>
-
-    
-    
-    <?php include("menu.php"); ?>
+ 
+<header>
+<?php include("header.php"); ?>
+</header>
 
     <div class="gradient5">
     
@@ -36,14 +33,14 @@ $resultat = mysqli_fetch_all($query);
         <th>id</th>
         <th>Nom</th>
         <th>Prenom</th>
-        <th>login</th>
+        
     </tr>
     </thead>
     <tbody>
     <tr>
-    <?php foreach ($resultat as list($id,$nom,$prenom,$login))
+    <?php foreach ($resultat as list($id,$nom,$prenom))
     {
-        echo "<tr><td>".$id."</td><td>".$nom."</td><td>".$prenom."</td><td>".$login."</td></tr>";
+        echo "<tr><td>".$id."</td><td>".$nom."</td><td>".$prenom."</td></tr>";
     }
     ?>
         
@@ -52,7 +49,8 @@ $resultat = mysqli_fetch_all($query);
 </table>
     </div>
 
-    <?php include("menu2.php"); ?>
-    
+    <footer>
+    <?php include("footer.php"); ?>
+    </footer>
 </body>
 </html>

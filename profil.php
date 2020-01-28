@@ -9,6 +9,8 @@ $query = mysqli_query($connexion, $requete);
 $resultat = mysqli_fetch_all($query);
 
 
+
+
 if(!isset($_SESSION['login']))
 {   echo "erreur";
     header("Location: connexion.php");
@@ -21,6 +23,41 @@ else
 }
 
 
+if(isset($_POST["modifp"]))
+{ 
+$pass = $_POST['mdp'];
+$pass2 = $_POST['mdp2'];
+    if($pass==$pass2)
+    {
+        $mdpv2 = password_hash($pass,PASSWORD_BCRYPT, array('cost' => 12));
+        $requete = "UPDATE livreor.utilisateurs SET password =\"$mdpv2\" WHERE utilisateurs.login = \"$login\"";
+        var_dump($requete);
+        $query = mysqli_query($connexion, $requete);
+    }
+
+
+echo "votre password a bien été modifier";
+
+
+}
+
+
+
+if(isset($_POST["modifl"]))
+{ 
+$login2 = $_POST['login'];
+
+
+$requete = "UPDATE livreor.utilisateurs SET login =\"$login2\" WHERE utilisateurs.login = \"$login\"";
+var_dump($requete);
+$query = mysqli_query($connexion, $requete);
+$_SESSION['login'] = $login2;
+$login = $login2;
+
+echo "votre login a bien été modifier";
+
+
+}
 
 
 ?>
@@ -29,17 +66,17 @@ else
 <head>
     <meta charset="utf-8">
     <title>profil</title>
-    <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="css/style.css">
 
 </head>
 <?php ?>
 <body>
-    <div id="stars"></div>
-    <div id="stars2"></div>
-    <div id="stars3"></div>
+    
 
     
-<?php include("menu.php"); ?>
+<header>
+<?php include("header.php"); ?>
+</header>
 
     <h2>Bienvenue dans votre espace <?php echo $login;?></h2>
 
@@ -47,16 +84,11 @@ else
 <table>
 <thead>
     <tr>
-        
-        <th>Nom</th>
-        <th>Prenom</th>
         <th>login</th>
     </tr>
 <thead>
     <tbody>
     <tr>
-        <td><?php echo $resultat[0][2]; ?></td>
-        <td><?php echo $resultat[0][3]; ?></td>
         <td><?php echo $login; ?></td>
     </tr>
     </tbody>
@@ -70,41 +102,30 @@ else
 
         <h2>Modifier vos info</h2>
 
-        <label for="login">MODIFIER login:</label>
-        <input type="text" minlength="5" required name="login" id="login" placeholder="<?php echo $login; ?>">
+        <label for="login">Modifier login:</label>
+        <input type="text" minlength="5" required name="login" id="login" value="<?php echo $login; ?>">
 
-        <label for="login">Ancien nom:</label>
-        <input type="text" minlength="5" required name="nom" id="nom" placeholder="<?php echo $resultat[0][2]; ?>">
+        <input type="submit" name="modifl" id="submit" value="Envoyer">
 
-        <label for="login">Ancien prenom:</label>
-        <input type="text" minlength="5" required name="prenom" id="prenom" placeholder="<?php echo $resultat[0][3]; ?>">
+    </form>
+       
+    <form class="formulaire" method="post" action="profil.php">
+        <label for="mdp">Modifier Password:</label>
+        <input type="text" minlength="5" required name="mdp" id="mdp" placeholder="">
         
-        <input type="submit" name="modif" id="submit" value="Envoyer">
+        <label for="mdp2">Confirmer Password:</label>
+        <input type="text" minlength="5" required name="mdp2" id="mdp2" placeholder="">
+        
+        
+        <input type="submit" name="modifp" id="submit" value="Envoyer">
 </form>
     </div>
-<?php
 
-
-
-
-if(isset($_POST["modif"]))
-{ 
-$login2 = $_POST['login'];
-$prenom = $_POST['prenom'];
-$nom = $_POST['nom'];
-
-$requete = "UPDATE moduleconnexion.utilisateurs SET login =\"$login2\", nom =\"$nom\", prenom =\"$prenom\" WHERE utilisateurs.login = \"$login\"";
-$query = mysqli_query($connexion, $requete);
-$_SESSION['login'] = $login2;
-$login = $login2;
-
-echo "votre login a bien été modifier";
-
-
-}
-
-
-?>
 </body>
-<?php include("menu2.php"); ?>
+
+
+<footer>
+    <?php include("footer.php"); ?>
+</footer>
+
 </html>

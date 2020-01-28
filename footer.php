@@ -1,12 +1,4 @@
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <title>profil</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Ma+Shan+Zheng&display=swap" rel="stylesheet"> 
-    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script&display=swap" rel="stylesheet">
+<footer>
 
 <nav>        
     <div class="gradient6">
@@ -15,6 +7,12 @@
             <li><a href="Inscription.php">Inscription</a></li>
             <li><a href="Connexion.php">Connexion</a></li>
             <li><a href="Profil.php">Profil</a></li>
+            <?php if (isset($_SESSION["login"]))
+            {
+            echo"<li><a href='livre-or.php'>livre-dor</a></li>";
+            }
+            
+            ?>
             <?php
             if(isset($_SESSION["login"])) {
 
@@ -32,12 +30,12 @@
             </form>
             <?php if(isset ($_POST['Dec']))
             {
-                session_destroy();
-                header('location : index.php');
+               
+                header('location : deconnexion.php');
             }?>
 
 
         </ul>
     </div>    
 </nav>
-</html>
+</footer>

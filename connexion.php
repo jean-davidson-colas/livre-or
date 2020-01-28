@@ -5,14 +5,16 @@ if (isset($_POST["submit"])) {
   $connexion = mysqli_connect("localhost", "root","", "livreor");
   $login = $_POST["login"];
   $password = $_POST["password"];
-  $requete2 = "SELECT password FROM utilisateurs WHERE login = '" . $login . "'";
+  $requete2 = "SELECT * FROM utilisateurs WHERE login = '" . $login . "'";
   $query = mysqli_query($connexion, $requete2);
   $resultat = mysqli_fetch_row($query);
 
   
 
-  if (password_verify($_POST['password'], $resultat[0])) {
+  if (password_verify($_POST['password'], $resultat[2])) {
     $_SESSION['login'] = $_POST['login'];
+    $_SESSION['id'] = $resultat[0];
+    
     header("location:profil.php");
     
   }
@@ -33,20 +35,17 @@ if (isset($_POST["submit"])) {
 </head>
 
 <body>
-    <div id="stars"></div>
-    <div id="stars2"></div>
-    <div id="stars3"></div>
-
  
+<?php include("header.php"); ?>
 
-  <?php include("menu.php"); ?>
-
+<main>
  
   <div class="gradient">
 
   <form method="POST" action="connexion.php">
     
   <p class="P1">
+
     <label>Login</label>
     <input type="text" name="login">
 
@@ -59,8 +58,10 @@ if (isset($_POST["submit"])) {
   
   </form>
   </div>
-
-  <?php include("menu2.php"); ?>
+  </main>
+  
+    <?php include("footer.php"); ?>
+   
 </body>
 
 </html>

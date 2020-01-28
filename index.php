@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 $connexion = mysqli_connect("localhost","root","","livreor");
@@ -14,17 +15,14 @@ $connexion = mysqli_connect("localhost","root","","livreor");
  
     <body>
 
-    <div id="stars"></div>
-    <div id="stars2"></div>
-    <div id="stars3"></div>
-
-    
  
     
     
-    <?php include("menu.php"); ?>
+    <header>
+        <?php include("header.php"); ?>
+    </header>
     
-    <h1>Mon super site</h1>
+    <h1>livre d'or</h1>
     
     <div class="gradient4">
     
@@ -32,7 +30,7 @@ $connexion = mysqli_connect("localhost","root","","livreor");
         
         
         <p>
-            Bienvenue sur mon super site !<br />
+            Bienvenue sur livre d'or !<br />
             Vous allez adorer ici, c'est un site génial qui va parler de... euh... Je cherche encore un peu le thème de mon site. :-D
         </p>
     </div>
@@ -40,7 +38,9 @@ $connexion = mysqli_connect("localhost","root","","livreor");
     </div>
     
     
-    <?php include("menu2.php"); ?>
+    <footer>
+    <?php include("footer.php"); ?>
+    </footer>
     
     </body>
 </html>

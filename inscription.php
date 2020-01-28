@@ -37,7 +37,7 @@ if(isset($_POST["submit"]))
     else
     {
         $mdpv = password_hash($_POST["password"],PASSWORD_BCRYPT, array('cost' => 12));
-        $requete_inscr = "INSERT INTO utilisateurs (id,login,prenom,nom,password) VALUES (NULL,\"$login\",\"$prenom\",\"$nom\",\"$mdpv\");";
+        $requete_inscr = "INSERT INTO utilisateurs (id,login,password) VALUES (NULL,\"$login\",\"$mdpv\");";
         $query_inscr = mysqli_query($connexion,$requete_inscr);
         echo "tout est ok";
         header("Location: connexion.php");
@@ -60,13 +60,8 @@ mysqli_close($connexion);
 
 <body>
 
-    <div id="stars"></div>
-    <div id="stars2"></div>
-    <div id="stars3"></div>
 
-
-    
-<?php include("menu.php"); ?>
+<?php include("header.php"); ?>
 
 
 
@@ -83,23 +78,6 @@ mysqli_close($connexion);
                 </td>
                 <td>
                     <input type="text" placeholder = "Votre pseudo" id = "login" name = "login">
-                </td>
-        </tr>
-
-        <tr>
-                <td align="right">
-                    <label for="prenom">Prenom :</label>
-                </td>
-                <td>
-                    <input type="text" placeholder = "Votre Prenom" id = "prenom" name = "prenom">
-                </td>
-        </tr>
-        <tr>
-                <td align="right">
-                    <label for="nom">Nom :</label>
-                </td>
-                <td>
-                    <input type="text" placeholder = "Votre Nom"  id = "nom" name = "nom">
                 </td>
         </tr>
         <tr>
@@ -133,7 +111,10 @@ mysqli_close($connexion);
 </form>
 
 </div>
-<?php include("menu2.php"); ?>
+
+<footer>
+    <?php include("footer.php"); ?>
+    </footer>
 
 
 
